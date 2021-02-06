@@ -1,5 +1,8 @@
 const visiteurs = document.querySelector("#visiteurs");
 const ongletVisiteur = document.querySelector("#ongletVisiteur");
+let visiteurDelete = "";
+let updateId = "";
+let newNom = "";
 
 const getVisiteurs = () => {
     const url = 'http://localhost:3000/gsb/visiteur';
@@ -18,6 +21,7 @@ const getVisiteurs = () => {
                 `
                     <option value="" class="default">-- Choisissez un visiteur --</option>
             `);
+
         for (const visiteur of data) {
             const date = new Date(visiteur.dateEmbauche);
             const mois = ["Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre"];
@@ -27,20 +31,28 @@ const getVisiteurs = () => {
                         <div class="card visiteur${visiteur.id}">
                             <div class="card-body">
                                 <div class="infos${visiteur.id}">
-                                    <span class="id">Id:</span> ${visiteur.id}<br>
                                     <span class="nom">Nom:</span> ${visiteur.nom}<br>
                                     <span class="date">Date d'embauche: </span>` + date.getDate() + ` ` + mois[date.getMonth()] + ` ` + date.getFullYear() + `<br>
                                     <span class="rapports">Rapports:</span><br>
                                 </div>
+                                <div class="updateInputs updateInputs${visiteur.id}">
+                                        <label>Nom: </label>
+                                        <input type="text" class="newNom newNom${visiteur.id}" name="newNom" placeholder="Ex: Lee">
+                                        <div class="inputRow">
+                                            <button type="submit" class="updateNom updateNom${visiteur.id}"><i class="fas fa-check-circle"></i></button>
+                                            <button class="annuler annuler${visiteur.id}"><i class="fas fa-times-circle"></i></button>
+                                        </div>
+                                </div>
                                 <div class="boutons">    
-                                    <button class="modifier">Modifier</button>
-                                    <button class="supprimer">Supprimer</button>
+                                    <button class="modifier modifierVisiteur${visiteur.id}">Modifier</button>
+                                    <button class="supprimer supprimerVisiteur${visiteur.id}">Supprimer</button>
                                 </div>
                             </div>
                         </div>
                     </li>
                 </ul>
                 `);
+            
             for (rapport of visiteur.rapports) {
                 const dateRapport = new Date(rapport.date);
                 document.querySelector(`.infos${visiteur.id}`).insertAdjacentHTML('beforeEnd',
@@ -48,7 +60,6 @@ const getVisiteurs = () => {
                     <div class="infosRapport">
                         <ul>
                             <li>
-                                <span class="id">Id:</span> ${rapport.id}<br>
                                 <span class="dateRapport">Date: </span>` + dateRapport.getDate() + ` ` + mois[dateRapport.getMonth()] + ` ` + dateRapport.getFullYear() + `<br>
                                 <span class="bilan">Bilan:</span> ${rapport.bilan}<br>
                                 <span class="motif">Motif:</span> ${rapport.motif}<br>
@@ -57,21 +68,50 @@ const getVisiteurs = () => {
                     </div>
                 `);
             }
+
             document.querySelector("#visiteurId").insertAdjacentHTML("beforeEnd",
                 `
-                <option value="${visiteur.id}">${visiteur.id} - ${visiteur.nom}</option>
+                <option value="${visiteur.id}"> ${visiteur.nom}</option>
             `);
             document.querySelector("#visiteurRapports").insertAdjacentHTML("beforeend",
                 `
-                <option value="${visiteur.id}">${visiteur.id} - ${visiteur.nom}</option>
+                <option value="${visiteur.id}"> ${visiteur.nom}</option>
             `);
             document.querySelector("#rapportVisiteurId").insertAdjacentHTML("beforeend",
                 `
-                <option value="${visiteur.id}">${visiteur.id} - ${visiteur.nom}</option>
+                <option value="${visiteur.id}"> ${visiteur.nom}</option>
             `);
+
             if (data.indexOf(visiteur) < data.length - 1) {
                 document.querySelector(`.visiteur${visiteur.id}`).style.marginBottom = "2%";
             }
+
+            document.querySelector(`.updateInputs${visiteur.id}`).style.display = "none";
+
+            let modifier = document.querySelector(`.modifierVisiteur${visiteur.id}`);
+            modifier.addEventListener("click", () => {
+                document.querySelector(`.updateInputs${visiteur.id}`).style.display = "block";
+            });
+            
+            let annuler = document.querySelector(`.annuler${visiteur.id}`);
+            annuler.addEventListener("click", () => {
+                document.querySelector(`.updateInputs${visiteur.id}`).style.display = "none";
+            })
+            
+            let supprimer = document.querySelector(`.supprimerVisiteur${visiteur.id}`);
+            supprimer.addEventListener("click", () => {
+                visiteurDelete = visiteur.id;
+                deleteVisiteur();
+            })
+
+            let valider = document.querySelector(`.updateNom${visiteur.id}`);
+            valider.addEventListener("click", (e) => {
+                e.preventDefault();
+                updateId = visiteur.id;
+                newNom = document.querySelector(`.newNom${visiteur.id}`);
+                visiteurs.innerHTML = "";
+                updateVisiteur();
+            })
         }
     })
     .catch((error) => {

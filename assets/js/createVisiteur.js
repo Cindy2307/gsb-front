@@ -1,16 +1,23 @@
-const rechercheVisiteur = document.querySelector("#rechercherVisiteur");
-const visiteurId = document.querySelector("#visiteurId");
+const creerVisiteur = document.querySelector("#creerVisiteur");
+const nomVisiteur = document.querySelector("#nomVisiteur");
 
-const getVisiteurById = () => {
-    const url = `http://localhost:3000/gsb/visiteur/${visiteurId.value}`;
-    fetch(url)
+const createVisiteur = () => {
+    const url = 'http://localhost:3000/gsb/visiteur';
+    fetch(url, {
+        method: "POST",
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            nom: nomVisiteur.value
+        })
+    })
     .then(response => response.json())
         .then((data) => {
             const date = new Date(data.dateEmbauche);
             const mois = ["Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre"];
             visiteurs.insertAdjacentHTML('beforeEnd',
-                `
-                <ul>
+                `<ul>
                     <li>
                         <div class="card visiteur${data.id}">
                             <div class="card-body">
@@ -34,25 +41,9 @@ const getVisiteurById = () => {
                             </div>
                         </div>
                     </li>
-                </ul
+                </ul>
                 `);
             
-            for (rapport of data.rapports) {
-                const dateRapport = new Date(rapport.date);
-                document.querySelector(`.infos${data.id}`).insertAdjacentHTML('beforeEnd',
-                    `
-                    <div class="infosRapport">
-                        <ul>
-                            <li>
-                                <span class="dateRapport">Date: </span>` + dateRapport.getDate() + ` ` + mois[dateRapport.getMonth()] + ` ` + dateRapport.getFullYear() + `<br>
-                                <span class="bilan">Bilan:</span> ${rapport.bilan}<br>
-                                <span class="motif">Motif:</span> ${rapport.motif}<br>
-                            </li>
-                        </ul>
-                    </div>
-                `);
-            }
-
             document.querySelector(`.updateInputs${data.id}`).style.display = "none";
 
             let modifier = document.querySelector(`.modifierVisiteur${data.id}`);
@@ -79,15 +70,14 @@ const getVisiteurById = () => {
                 visiteurs.innerHTML = "";
                 updateVisiteur();
             })
-        })
+    })
     .catch((error) => {
         console.log(`Voici mon erreur ${error}`);
     });
 }
 
-rechercheVisiteur.addEventListener("click", (e) => {
+creerVisiteur.addEventListener("click", (e) => {
     e.preventDefault();
     visiteurs.innerHTML = "";
-    getVisiteurById();
-    visiteurId.value = "";
+    createVisiteur();
 })

@@ -39,6 +39,7 @@ body {
     margin: 0;
     background: url(../img/fond.jpg);
     background-size: cover;
+    height: 100vh;
 }
 
 main {
@@ -57,7 +58,7 @@ main {
 #optionsRapport {
     width: 29%;
     height: fit-content;
-    padding: 2% 2% 1% 2%;
+    padding: 1.356% 1.356% 0.356% 1.356%;
 }
 
 #affichage,
@@ -102,6 +103,8 @@ a {
 #visiteurs,
 #rapports {
     padding: 2%;
+    max-height: 70vh;
+    overflow: auto;
 }
 
 #rapports {
@@ -148,6 +151,40 @@ a {
     color: white;
     border-color: green;
     border-radius: 20px;
+}
+
+.updateNom,
+.updateRapport {
+    color: green;
+}
+
+.annuler {
+    color: red;
+}
+
+.updateNom,
+.updateRapport,
+.annuler {
+    border: none;
+    background: none;
+    padding: 1%;
+}
+
+.updateInputs {
+    width: 30%;
+}
+
+.inputRow {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.newNom,
+.newBilan,
+.newMotif {
+    border-radius: 20px;
+    margin-bottom: 0;
 }
 
 .supprimer {

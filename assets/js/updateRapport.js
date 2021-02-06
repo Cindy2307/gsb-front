@@ -1,16 +1,22 @@
-const rechercheRapport = document.querySelector("#rechercherRapport");
-const rapportId = document.querySelector("#rapportId");
+const updateRapport = () => {
 
-const getRapportById = () => {
-    const url = `http://localhost:3000/gsb/rapport/${rapportId.value}`;
-    fetch(url)
+    const url = `http://localhost:3000/gsb/rapport/${updateRapportId}`;
+    fetch(url, {
+        method: "PUT",
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            bilan: newBilan.value,
+            motif: newMotif.value
+        })
+    })
     .then(response => response.json())
         .then((data) => {
             const date = new Date(data.date);
             const mois = ["Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre"];
             rapports.insertAdjacentHTML('beforeEnd',
-                `
-                <ul>
+                `<ul>
                     <li>
                         <div class="card rapport${data.id}">
                             <div class="card-body">
@@ -35,8 +41,9 @@ const getRapportById = () => {
                             </div>
                         </div>
                     </li>
-                </ul
-                `);
+                </ul>
+            `);
+
             document.querySelector(`.updateInputs${data.id}`).style.display = "none";
 
             let modifier = document.querySelector(`.modifierRapport${data.id}`);
@@ -64,15 +71,8 @@ const getRapportById = () => {
                 rapports.innerHTML = "";
                 updateRapport();
             })
-        })
+    })
     .catch((error) => {
         console.log(`Voici mon erreur ${error}`);
     });
 }
-
-rechercheRapport.addEventListener("click", (e) => {
-    e.preventDefault();
-    rapports.innerHTML = "";
-    getRapportById();
-    rapportId.value = "";
-})

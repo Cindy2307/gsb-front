@@ -7,6 +7,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
     <link rel="stylesheet" href="../assets/css/visiteur.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.css">
 </head>
 <body>
     <header>
@@ -59,8 +60,8 @@
                     <div class="input">
                         <form>
                             <label>Nom: </label>
-                            <input type="text" name="nomVisiteur" placeholder="Ex: Lee">
-                            <input type="submit" value="Créer">
+                            <input type="text" name="nomVisiteur" id="nomVisiteur" placeholder="Ex: Lee">
+                            <input type="submit" value="Créer" id="creerVisiteur">
                         </form>
                     </div>
                 </div>
@@ -72,7 +73,7 @@
                     <header class="header">Rechercher un rapport</header>
                     <div class="input">
                         <form>
-                            <label>Id du rapport: </label>
+                            <label>Rapport: </label>
                             <select name="rapportId" id="rapportId"></select>
                             <input type="submit" value="Rechercher" id="rechercherRapport">
                         </form>
@@ -87,10 +88,10 @@
                             <label>Visiteur:</label>
                             <select name="rapportVisiteurId" id="rapportVisiteurId"></select>
                             <label>Bilan: </label>
-                            <input type="text" name="bilan" placeholder="Ex: Très bien">
+                            <input type="text" name="bilan" id="bilan" placeholder="Ex: Très bien">
                             <label>Motif:</label>
-                            <textarea name="motif" rows="5" placeholder="Ex: Votre motif"></textarea>
-                            <input type="submit" value="Créer">
+                            <textarea name="motif" id="motif" rows="5" placeholder="Ex: Votre motif"></textarea>
+                            <input type="submit" value="Créer" id="creerRapport">
                         </form>
                     </div>
                 </div>
@@ -105,5 +106,11 @@
     <script src="../assets/js/visiteurById.js"></script>
     <script src="../assets/js/rapportById.js"></script>
     <script src="../assets/js/rapportsByVisiteur.js"></script>
+    <script src="../assets/js/createVisiteur.js"></script>
+    <script src="../assets/js/createRapport.js"></script>
+    <script src="../assets/js/deleteVisiteur.js"></script>
+    <script src="../assets/js/deleteRapport.js"></script>
+    <script src="../assets/js/updateVisiteur.js"></script>
+    <script src="../assets/js/updateRapport.js"></script>
 </body>
 </html>

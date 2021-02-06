@@ -1,16 +1,21 @@
-const rechercheVisiteur = document.querySelector("#rechercherVisiteur");
-const visiteurId = document.querySelector("#visiteurId");
+const updateVisiteur = () => {
 
-const getVisiteurById = () => {
-    const url = `http://localhost:3000/gsb/visiteur/${visiteurId.value}`;
-    fetch(url)
+    const url = `http://localhost:3000/gsb/visiteur/${updateId}`;
+    fetch(url, {
+        method: "PUT",
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            nom: newNom.value
+        })
+    })
     .then(response => response.json())
         .then((data) => {
             const date = new Date(data.dateEmbauche);
             const mois = ["Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre"];
             visiteurs.insertAdjacentHTML('beforeEnd',
-                `
-                <ul>
+                `<ul>
                     <li>
                         <div class="card visiteur${data.id}">
                             <div class="card-body">
@@ -34,9 +39,9 @@ const getVisiteurById = () => {
                             </div>
                         </div>
                     </li>
-                </ul
-                `);
-            
+                </ul>
+            `);
+
             for (rapport of data.rapports) {
                 const dateRapport = new Date(rapport.date);
                 document.querySelector(`.infos${data.id}`).insertAdjacentHTML('beforeEnd',
@@ -79,15 +84,8 @@ const getVisiteurById = () => {
                 visiteurs.innerHTML = "";
                 updateVisiteur();
             })
-        })
+    })
     .catch((error) => {
         console.log(`Voici mon erreur ${error}`);
     });
 }
-
-rechercheVisiteur.addEventListener("click", (e) => {
-    e.preventDefault();
-    visiteurs.innerHTML = "";
-    getVisiteurById();
-    visiteurId.value = "";
-})

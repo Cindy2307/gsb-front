@@ -1,21 +1,31 @@
-const rechercheRapport = document.querySelector("#rechercherRapport");
-const rapportId = document.querySelector("#rapportId");
+const creerRapport = document.querySelector("#creerRapport");
+const visiteur = document.querySelector("#rapportVisiteurId");
+const bilan = document.querySelector("#bilan");
+const motif = document.querySelector("#motif");
 
-const getRapportById = () => {
-    const url = `http://localhost:3000/gsb/rapport/${rapportId.value}`;
-    fetch(url)
+const createRapport = () => {
+    const url = `http://localhost:3000/gsb/visiteur/${visiteur.value}/rapport`;
+    fetch(url, {
+        method: "POST",
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            bilan: bilan.value,
+            motif: motif.value
+        })
+    })
     .then(response => response.json())
         .then((data) => {
             const date = new Date(data.date);
             const mois = ["Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre"];
             rapports.insertAdjacentHTML('beforeEnd',
-                `
-                <ul>
+                `<ul>
                     <li>
                         <div class="card rapport${data.id}">
                             <div class="card-body">
                                 <div class="infos${data.id}">
-                                    <span class="date">Date: </span>` + date.getDate() + ` ` + mois[date.getMonth()] + ` ` + date.getFullYear() + `<br>
+                                    <span class="date">Date d'embauche: </span>` + date.getDate() + ` ` + mois[date.getMonth()] + ` ` + date.getFullYear() + `<br>
                                     <span class="bilan">Bilan:</span> ${data.bilan}<br>
                                     <span class="motif">Motif:</span> ${data.motif}
                                 </div>
@@ -35,8 +45,9 @@ const getRapportById = () => {
                             </div>
                         </div>
                     </li>
-                </ul
-                `);
+                </ul>
+                `);   
+            
             document.querySelector(`.updateInputs${data.id}`).style.display = "none";
 
             let modifier = document.querySelector(`.modifierRapport${data.id}`);
@@ -64,15 +75,15 @@ const getRapportById = () => {
                 rapports.innerHTML = "";
                 updateRapport();
             })
-        })
+    })
     .catch((error) => {
         console.log(`Voici mon erreur ${error}`);
     });
 }
 
-rechercheRapport.addEventListener("click", (e) => {
+creerRapport.addEventListener("click", (e) => {
     e.preventDefault();
     rapports.innerHTML = "";
-    getRapportById();
-    rapportId.value = "";
+    createRapport();
 })
+
