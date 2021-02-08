@@ -252,6 +252,18 @@ ul {
     border: 1px solid rgba(52, 122, 252, 0.685);
 }
 
+button:focus {
+    outline: 0;
+}
+
+input:focus {
+    outline: 0;
+}
+
+textarea:focus {
+    outline: 0;
+}
+
 @media screen and (max-width:1200px) {
     h1 {
         font-size: 25px;

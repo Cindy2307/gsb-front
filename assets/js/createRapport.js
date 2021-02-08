@@ -31,8 +31,9 @@ const createRapport = () => {
                                 </div>
                                 <div class="updateInputs updateInputs${data.id}">
                                         <label>Bilan: </label>
-                                        <input type="text" class="newBilan newBilan${data.id}" name="newBilan" placeholder="Ex: Bilan positif">
-                                        <input type="text" class="newMotif newMotif${data.id}" name="newMotif" placeholder="Ex: Votre motif">
+                                        <input type="text" class="newBilan newBilan${data.id}" name="newBilan" value="${data.bilan}">
+                                        <label>Motif:</label>
+                                        <textarea class="newMotif newMotif${data.id}" name="newMotif" rows="5">${data.motif}</textarea>
                                         <div class="inputRow">
                                             <button type="submit" class="updateRapport updateRapport${data.id}"><i class="fas fa-check-circle"></i></button>
                                             <button class="annuler annulerModif${data.id}"><i class="fas fa-times-circle"></i></button>

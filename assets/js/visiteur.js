@@ -37,7 +37,7 @@ const getVisiteurs = () => {
                                 </div>
                                 <div class="updateInputs updateInputs${visiteur.id}">
                                         <label>Nom: </label>
-                                        <input type="text" class="newNom newNom${visiteur.id}" name="newNom" placeholder="Ex: Lee">
+                                        <input type="text" class="newNom newNom${visiteur.id}" name="newNom" value="${visiteur.nom}">
                                         <div class="inputRow">
                                             <button type="submit" class="updateNom updateNom${visiteur.id}"><i class="fas fa-check-circle"></i></button>
                                             <button class="annuler annuler${visiteur.id}"><i class="fas fa-times-circle"></i></button>

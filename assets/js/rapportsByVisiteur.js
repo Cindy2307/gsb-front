@@ -22,8 +22,9 @@ const getRapportByVisiteurId = () => {
                                 </div>
                                 <div class="updateInputs updateInputs${rapport.id}">
                                         <label>Bilan: </label>
-                                        <input type="text" class="newBilan newBilan${rapport.id}" name="newBilan" placeholder="Ex: Bilan positif">
-                                        <input type="text" class="newMotif newMotif${rapport.id}" name="newMotif" placeholder="Ex: Votre motif">
+                                        <input type="text" class="newBilan newBilan${rapport.id}" name="newBilan" value="${rapport.bilan}">
+                                        <label>Motif:</label>
+                                        <textarea class="newMotif newMotif${rapport.id}" name="newMotif" rows="5">${rapport.motif}</textarea>
                                         <div class="inputRow">
                                             <button type="submit" class="updateRapport updateRapport${rapport.id}"><i class="fas fa-check-circle"></i></button>
                                             <button class="annuler annulerModif${rapport.id}"><i class="fas fa-times-circle"></i></button>

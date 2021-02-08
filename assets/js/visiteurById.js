@@ -21,7 +21,7 @@ const getVisiteurById = () => {
                                 </div>
                                 <div class="updateInputs updateInputs${data.id}">
                                         <label>Nom: </label>
-                                        <input type="text" class="newNom newNom${data.id}" name="newNom" placeholder="Ex: Lee">
+                                        <input type="text" class="newNom newNom${data.id}" name="newNom" value="${data.nom}">
                                         <div class="inputRow">
                                             <button type="submit" class="updateNom updateNom${data.id}"><i class="fas fa-check-circle"></i></button>
                                             <button class="annuler annuler${data.id}"><i class="fas fa-times-circle"></i></button>
