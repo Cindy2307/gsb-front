@@ -1,0 +1,4 @@
+.card-body{
+    flex-direction: column;
+    padding: 0;
+}
