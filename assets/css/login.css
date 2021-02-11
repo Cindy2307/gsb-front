@@ -1,4 +1,9 @@
-.card-body{
+.card-body {
+    display: flex;
     flex-direction: column;
     padding: 0;
+}
+
+.card {
+    margin: 20% auto 0 auto;
 }
