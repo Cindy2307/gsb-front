@@ -5,5 +5,15 @@
 }
 
 .card {
-    margin: 20% auto 0 auto;
+    margin: auto;
+}
+
+main {
+    height: 75vh;
+    display: flex;
+    align-items: center;
+}
+
+body {
+    height: 100vh;
 }
